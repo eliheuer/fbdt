@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-import os
+import subprocess
 import wx
 
 
@@ -13,12 +12,11 @@ class FileDrop(wx.FileDropTarget):
     def OnDropFiles(self, x, y, filenames):
         for fontpath in filenames:
             try:
-                print('fontpath = ',fontpath)
-                os.system('fontbakery check-googlefonts ' + fontpath + ' -l WARN --ghmarkdown ~/Desktop/fontbakery-report.md')
+                subprocess.call(['fontbakery check-googlefonts ' + fontpath + ' --ghmarkdown ~/Desktop/fontbakery-report.md'], shell=True)
             except IOError as error:
                 msg = "Error opening file\n {}".format(str(error))
-                dlg = wx.MessageDialog(None, msg)
-                dlg.ShowModal()
+                err = wx.MessageDialog(None, msg)
+                err.ShowModal()
                 return False
         return True
 
@@ -38,7 +36,6 @@ class FontBakeryGUI(wx.Frame):
 
 
 def main():
-
     app = wx.App()
     fb = FontBakeryGUI(None)
     fb.Show()
