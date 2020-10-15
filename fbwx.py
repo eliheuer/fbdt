@@ -8,7 +8,7 @@ class FileDrop(wx.FileDropTarget):
         wx.FileDropTarget.__init__(self)
         self.window = window
         self.window.WriteText(
-            "Drag & drop a font file here, then look for a markdown report on your desktop."
+            "Drag and drop a font file here, then look for a markdown report on your desktop."
         )
 
     def OnDropFiles(self, x, y, filenames):
